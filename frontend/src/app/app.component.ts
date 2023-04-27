@@ -10,6 +10,8 @@ import { map, tap } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   receptek: Recept[] = [];
+  receptekView: Recept[] = [];
+
   kategoriak: Kategoria[] = [];
   kijelolt: Recept = null;
   constructor(private dataStorageService: DataStorageService) {}
@@ -35,6 +37,9 @@ export class AppComponent implements OnInit {
         tap({
           next: (data) => {
             this.receptek = data;
+            this.receptekView = [...this.receptek.map((data)=>{
+              return {...data}
+            })]
             console.log(this.receptek);
           },
           error: (error) => {
@@ -64,5 +69,13 @@ export class AppComponent implements OnInit {
    this.kijelolt = this.receptek.find((recept)=>{
     return recept.id == id;
    })
+  }
+
+  mutat(id: number){
+    console.log(id);
+    
+    this.receptekView = this.receptek.filter((recept)=>{
+      return recept.katId == id || id == -1;
+    })
   }
 }

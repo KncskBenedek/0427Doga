@@ -6,6 +6,17 @@
   </div>
   <hr />
   <div class="row">
+    <select name="katSelector" id="katSelector" #katSelector>
+      <option value="-1" id="0">Összes</option>
+      <option value="{{ kat.id }}" *ngFor="let kat of kategoriak">
+        {{ kat.nev }}
+      </option>
+    </select>
+
+    <button class="btn btn-primary" (click)="mutat(katSelector.value)">Szűrés</button>
+  </div>
+
+  <div class="row">
     <div class="col-sm-12">
       <table class="table table-responsive table-hover">
         <thead>
@@ -16,7 +27,7 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let recept of receptek"
+            *ngFor="let recept of receptekView"
             style="cursor: pointer"
             (click)="kijelol(recept.id)"
           >
@@ -36,13 +47,17 @@
     </div>
     <div class="row">
       <div class="col-sm-2">
-        <p> {{"Kategória:" + kijelolt.kat_nev }}</p>
+        <p>{{ "Kategória:" + kijelolt.kat_nev }}</p>
       </div>
       <div class="col-sm-5">
-        {{kijelolt.leiras}}
+        {{ kijelolt.leiras }}
       </div>
       <div class="col-sm-5">
-        <img src="{{kijelolt.kepURL}}" style="width: 100%;" class="responsive">
+        <img
+          src="{{ kijelolt.kepURL }}"
+          style="width: 100%"
+          class="responsive"
+        />
       </div>
     </div>
   </div>
