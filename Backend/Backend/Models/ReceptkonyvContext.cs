@@ -27,7 +27,7 @@ public partial class ReceptkonyvContext : DbContext
     {
         modelBuilder.Entity<Kategorium>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__kategori__3213E83FDF7D555F");
+            entity.HasKey(e => e.Id).HasName("PK__kategori__3213E83F91E6844C");
 
             entity.ToTable("kategoria");
 
@@ -40,11 +40,15 @@ public partial class ReceptkonyvContext : DbContext
 
         modelBuilder.Entity<Recept>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__recept__3213E83F8E7CE522");
+            entity.HasKey(e => e.Id).HasName("PK__recept__3213E83F16E05ACB");
 
             entity.ToTable("recept");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Datum)
+                .HasDefaultValueSql("(CONVERT([date],getdate()))")
+                .HasColumnType("date")
+                .HasColumnName("datum");
             entity.Property(e => e.KatId).HasColumnName("kat_id");
             entity.Property(e => e.KepEleresiUt)
                 .IsUnicode(false)
@@ -60,7 +64,7 @@ public partial class ReceptkonyvContext : DbContext
             entity.HasOne(d => d.Kat).WithMany(p => p.Recepts)
                 .HasForeignKey(d => d.KatId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__recept__kat_id__267ABA7A");
+                .HasConstraintName("FK__recept__kat_id__2C3393D0");
         });
 
         OnModelCreatingPartial(modelBuilder);
