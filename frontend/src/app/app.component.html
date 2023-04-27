@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12" style="text-align: center">
+      <h1>Receptek</h1>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-responsive table-hover">
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Kategória</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let recept of receptek"
+            style="cursor: pointer"
+            (click)="kijelol(recept.id)"
+          >
+            <td>{{ recept.nev }}</td>
+            <td>{{ recept.kat_nev }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr />
+  <div *ngIf="kijelolt">
+    <div class="row">
+      <div class="col-sm-12" style="text-align: center">
+        <h3>{{ kijelolt.nev }}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <p> {{"Kategória:" + kijelolt.kat_nev }}</p>
+      </div>
+      <div class="col-sm-5">
+        {{kijelolt.leiras}}
+      </div>
+      <div class="col-sm-5">
+        <img src="{{kijelolt.kepURL}}" style="width: 100%;" class="responsive">
+      </div>
+    </div>
+  </div>
+</div>

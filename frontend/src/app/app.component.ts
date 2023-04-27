@@ -11,6 +11,7 @@ import { map, tap } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   receptek: Recept[] = [];
   kategoriak: Kategoria[] = [];
+  kijelolt: Recept = null;
   constructor(private dataStorageService: DataStorageService) {}
 
   ngOnInit(): void {
@@ -57,5 +58,11 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  kijelol(id: number){
+   this.kijelolt = this.receptek.find((recept)=>{
+    return recept.id == id;
+   })
   }
 }
